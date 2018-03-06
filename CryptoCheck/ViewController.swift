@@ -97,6 +97,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // 3. Grab the value from the text field, and print it when the user clicks OK.
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
             let textField = alert?.textFields![0] // Force unwrapping because we know it exists.
+            if currencies.contains((textField?.text)!){
+                print("You already have that currency")
+            } else {
             let url = "https://min-api.cryptocompare.com/data/pricemultifull?fsyms=\(textField?.text ?? "")&tsyms=USD"
             print(url)
             Alamofire.request(url, method: .get)
@@ -109,6 +112,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                             self.tableview.reloadData()
                         }
                     }
+            }
             }
             
         }))
